@@ -1,0 +1,38 @@
+* {
+    box-sizing: border-box;
+}
+
+html {
+    background-color: whitesmoke;
+}
+
+body {
+    margin: 0;
+}
+
+
+img {
+    width: 18.75rem;
+    object-fit: cover;
+}
+
+input {
+    margin-left: 20px;
+}
+.canvas-container {
+    position: relative;
+    width: 100vw;
+    height: 600px;
+    margin: auto;
+    background-color: thistle;
+}
+
+.control-boxes {
+    display: inline;
+    position: absolute;
+    top: 3em;
+}
+
+.btn img {
+    width: 2rem;
+}
