@@ -10,50 +10,43 @@
 
 <body onload="onInit()">
 
-    <div class="page-container"></div>
     <header class="main-header flex space-between align-center">
 
-        <div class="logo"><img src="" alt=""></div>
-        <ul class="main-nav clean-list flex">
-            <li><a href="index.html">Gallery</a></li>
-            <li><a href="#">My Memes</a></li>
-            <li><a href="#">About</a></li>
+        <div class="logo"><img src="icons/logo.png" alt=""></div>
+        <ul id="nav" class="main-nav clean-list flex">
+            <li class="nav-gallery"><a href="index.html">Gallery</a></li>
+            <li><a href="#about-me">About</a></li>
         </ul>
+        <img onclick="onOpenMenu()" src="icons/menu-white.svg" class="menu-btn open" alt="">
+        <img onclick="onCloseMenu()" src="icons/close.svg" class="menu-btn close" alt="">
 
     </header>
 
     <main class="main-container">
-        <div class="editor-container">
-            <!-- <div class="canvas-box"></div> -->
-            <!-- <canvas id="canvas" height="400" width="400" style="border: 1px solid black;"></canvas> -->
-            <!-- <div class="control-boxes">
-                <input type="text" name="" id="" value="" placeholder="Enter Meme Text" oninput="onTxtInput(this.value)">
-                </div> -->
-            <!-- <div class="btn-container">
-                 <button class="btn increase"><img src="icons/increase font - icon.png" alt=""></button>
-                <button class="btn decrease"><img src="icons/decrease font - icon.png" alt=""></button>
+        <div class="editor-container flex">
 
-                  </div> -->
-            <!-- <button class="btn rotate-focus" onclick="onRotateFocus()"><img src="icons/rotate-arrow.svg" alt=""></button> -->
-            <!-- <button class="btn switch-line" onclick="onSwitchLine()"><img src="icons/up-and-down-opposite-double-arrows-side-by-side.png" alt=""></button>     -->
         </div>
 
         <section class="img-gallery">
             <div class="img-gallery-container grid">
-                <!-- <img src="img/2.jpg" alt="">
-     <img src="img/3.jpg" alt=""> -->
+
+            </div>
+
+            <div class="about">
+                <a id="about-me" class="direct"></a>
+                <a href="http://www.noamaviel.com/">Please visit my website by pressing this link!</a>
             </div>
         </section>
+
     </main>
 
     <footer class="main-footer flex center align-center">
-        <div class="logo-footer"><img src="" alt=""></div>
+        <div class="logo-footer"><img src="icons/logo.png" alt=""></div>
         <small>All rights reserved to Noam Aviel 2020</small>
     </footer>
 
     <script src="js/meme-controller.js"></script>
     <script src="js/meme-service.js"></script>
-    <script src="js/main.js"></script>
     </div>
 </body>
 

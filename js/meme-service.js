@@ -1,6 +1,6 @@
 'use-strict';
 
-const MAX_LINE_IDX = 1;
+const MAX_LINE_IDX = 4;
 var gImgs = [];
 var gMeme = {};
 
@@ -50,7 +50,6 @@ function setEditImg(imgId) {
 }
 
 function getImgById(imgId) {
-    console.log('imgId', imgId);
     let image = gImgs.find(function (image) {
         return image.id === imgId
     })
@@ -75,21 +74,27 @@ function moveUp() {
 
 function moveDown() {
     let currY = gMeme.lines[gMeme.selectedLineIdx].y;
-    if (currY < CANVAS_HEIGHT) gMeme.lines[gMeme.selectedLineIdx].y += 10;
+    if (currY < gCanvas.height) gMeme.lines[gMeme.selectedLineIdx].y += 10;
 }
 
 function addLine() {
     if (gMeme.lines.length - 1 >= MAX_LINE_IDX) return;
-    gMeme.lines.push(createLine('Line 2', CANVAS_HEIGHT - 50));
-    gMeme.selectedLineIdx = 1;
+    if (gMeme.lines.length === 1) {
+        gMeme.lines.push(createLine('Enter text', gCanvas.height - 50));
+    } else {
+        gMeme.lines.push(createLine('Enter text', gCanvas.height / 2));
+    }
+    gMeme.selectedLineIdx = gMeme.lines.length - 1;
 }
 
-function createLine(lineTxt = 'Line 1', lineY = 50) {
+function createLine(lineTxt = 'Enter text', lineY = 50) {
     let line = {
         txt: lineTxt,
+        font: 'Impact',
         size: 40,
         align: 'center',
-        color: 'red',
+        color: '#ffffff',
+        stroke: 'black',
         x: 200,
         y: lineY,
     }
@@ -111,4 +116,22 @@ function switchLines() {
     let tmp = gMeme.lines[0].y;
     gMeme.lines[0].y = gMeme.lines[1].y;
     gMeme.lines[1].y = tmp;
+}
+
+function setTxtColor(clr) {
+    gMeme.lines[gMeme.selectedLineIdx].color = clr;
+}
+
+function setFont(font) {
+    gMeme.lines[gMeme.selectedLineIdx].font = font;
+}
+
+function setTxtAlignment(aln) {
+    gMeme.lines[gMeme.selectedLineIdx].align = aln;
+}
+
+function deleteLine() {
+    if (gMeme.lines.length <= 1) return;
+    gMeme.lines.splice(gMeme.selectedLineIdx, 1);
+    rotateFocus();
 }
