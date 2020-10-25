@@ -28,6 +28,7 @@
 
 html {
     font-family: mont-reg, sans-serif;
+    scroll-behavior: smooth;
 }
 
 body {
@@ -43,6 +44,7 @@ main {
     flex-direction: column;
     flex-grow: 1;
     background-color: #e3e3e3;
+    min-width: 100vw;
 }
 
 a {
@@ -286,7 +288,6 @@ canvas {
 .img-gallery-container img {
     border-radius: 5px;
     cursor: pointer;
-    box-shadow: 9px 10px 26px -10px rgba(0, 0, 0, 0.75);
 }
 
 .grid {
@@ -307,10 +308,67 @@ canvas {
     justify-content: center;
     align-items: center;
     text-align: center;
-    min-height: 400px;
+    min-height: 500px;
+    min-width: 100vw;
     font-size: 30px;
     font-weight: bold;
     outline: none;
+    background-color: white;
+}
+
+.about-inner-container {
+    max-width: 890px;
+    margin: 0px 50px;
+}
+
+.about-inner-container .headshot {
+    max-width: 285px;
+    border-radius: 50%;
+}
+
+.about-description {
+    flex-direction: column;
+    justify-content: center;
+    text-align: left;
+    padding-inline-start: 2.75rem;
+}
+
+.about-description>* {
+    margin: 0;
+}
+
+.my-name {
+    font-family: mont-bold, sans-serif;
+    font-size: 1.562rem;
+    padding-bottom: 0.875rem;
+}
+
+.about-me-paragraph {
+    font-size: 1.25rem;
+    line-height: normal;
+    letter-spacing: normal;
+    margin-bottom: 3.125rem;
+}
+
+.social-media-list img {
+    width: 24px;
+}
+
+.social-media-list li {
+    margin-inline-end: 0.625rem;
+    width: 2.5rem;
+    height: 2.5rem;
+    background-color: #ff7f00;
+    border-radius: 12px;
+}
+
+.social-media-list a {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 2.5rem;
+    height: 2.5rem;
+    border-radius: 11px;
 }
 
 /* Footer */
@@ -385,13 +443,6 @@ canvas {
     .main-header .logo {
         margin-inline-start: 10px;
     }
-    .main-header .main-nav {
-        margin-inline-end: 0;
-    }
-    .main-header .main-nav ul {
-        position: fixed;
-        display: block;
-    }
     .main-header .main-nav li {
         height: 50px;
     }
@@ -419,6 +470,31 @@ canvas {
     }
     .download-img {
         font-size: 0.812rem;
+    }
+    .about {
+        min-height: 453px;
+    }
+    .about-inner-container {
+        flex-direction: column;
+        align-items: center;
+        margin: 0 1.875rem;
+    }
+    .about-description {
+        align-items: center;
+        padding: 0;
+    }
+    .about-me-paragraph {
+        text-align: center;
+        font-size: 0.937rem;
+        margin-bottom: 0.625rem;
+    }
+    .about-inner-container .headshot {
+        max-width: 157px;
+        margin-bottom: 1.125rem;
+    }
+    .my-name {
+        font-size: 1.375rem;
+        color: #ff7f00;
     }
     .main-footer small {
         font-size: 0.9rem;

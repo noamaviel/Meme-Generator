@@ -97,6 +97,10 @@ function createLine(lineTxt = 'Enter text', lineY = 50) {
         stroke: 'black',
         x: 200,
         y: lineY,
+        upperLeftX: 0,
+        upperLeftY: 0,
+        lowerRightX: 0,
+        lowerRightY: 0,
     }
     return line;
 }

@@ -4,6 +4,9 @@ var gCanvas;
 var gCtx;
 const mediaQuery = window.matchMedia('(max-width: 980px)');
 const mediaQueryNarrow = window.matchMedia('(max-width: 630px)');
+var gIsMoving = false; //dragging over the canvas.
+var gCanvasXPos = 0;
+var gCanvasYPos = 0;
 
 function onInit() {
 
@@ -24,6 +27,35 @@ function onInit() {
         this.onNarrowWidthChange();
     });
     onNarrowWidthChange();
+
+    // Add the event listeners for mousedown, mousemove, and mouseup
+    gCanvas.addEventListener('mousedown', e => {
+        gCanvasXPos = e.offsetX;
+        gCanvasYPos = e.offsetY;
+        onMouseDown();
+    });
+
+    gCanvas.addEventListener('mousemove', e => {
+        if (gIsMoving) {
+            console.log('gIsMoving', e.offsetX, e.offsetY);
+            let xMove = e.offsetX - gCanvasXPos;
+            let yMove = e.offsetY - gCanvasYPos;
+            gCanvasXPos = e.offsetX;
+            gCanvasYPos = e.offsetY;
+            onMouseMove(xMove, yMove);
+        }
+    });
+
+    window.addEventListener('mouseup', e => {
+        if (gIsMoving) {
+            let xMove = e.offsetX - gCanvasXPos;
+            let yMove = e.offsetY - gCanvasYPos;
+            onMouseMove(xMove, yMove);
+            gCanvasXPos = 0;
+            gCanvasYPos = 0;
+            gIsMoving = false;
+        }
+    });
 }
 
 function renderEditor() {
@@ -96,6 +128,12 @@ function drawText(line, idx, drawFocus) {
             if (align === 'right') xOffset = textWidth;
             gCtx.setLineDash([6]);
             gCtx.strokeRect(line.x - xOffset, line.y - line.size, textWidth, line.size);
+
+            //update text border for mouse operation.
+            line.upperLeftX = line.x - xOffset;
+            line.upperLeftY = line.y - line.size;
+            line.lowerRightX = line.upperLeftX + textWidth;
+            line.lowerRightY = line.upperLeftY + line.size;
         }
     }
 }
@@ -118,6 +156,7 @@ function onImgClick(imgId) {
     document.querySelector('.control-boxes input').value = '';
     document.querySelector('.img-gallery').style.display = 'none';
     document.querySelector('.editor-container').style.display = 'flex';
+    document.querySelector('.about').style.display = 'none';
     document.querySelector('.paint-input').value = '#ffffff';
     renderMeme();
 }
@@ -211,10 +250,13 @@ function onNarrowWidthChange() {
     if (mediaQueryNarrow.matches) {
         document.querySelector('.main-nav').style.transform = 'translateY(-300%)';
         document.querySelector('.open').style.display = 'inline-block';
+        document.getElementById('nav').classList.toggle('nav-narrow');
     } else {
+        onCloseMenu();
         document.querySelector('.main-nav').style.transform = 'translateY(0%)';
         document.querySelector('.open').style.display = 'none';
         document.querySelector('.close').style.display = 'none';
+        document.getElementById('nav').classList.toggle('nav-narrow');
     }
 }
 
@@ -222,12 +264,30 @@ function onOpenMenu() {
     document.querySelector('.open').style.display = 'none';
     document.querySelector('.close').style.display = 'inline-block';
     document.querySelector('.main-nav').style.transform = 'translateY(82%)';
-    document.getElementById('nav').classList.toggle('nav-narrow');
+    document.querySelector('.main-nav').style.position = 'absolute';
 }
 
 function onCloseMenu() {
     document.querySelector('.open').style.display = 'inline-block';
     document.querySelector('.close').style.display = 'none';
     document.querySelector('.main-nav').style.transform = 'translateY(-300%)';
-    document.getElementById('nav').classList.toggle('nav-narrow');
+    document.querySelector('.main-nav').style.position = 'static';
 }
+
+function onMouseDown() {
+    let line = gMeme.lines[gMeme.selectedLineIdx];
+    if ((gCanvasXPos < line.upperLeftX) || (gCanvasXPos > line.lowerRightX)) return;
+    if ((gCanvasYPos < line.upperLeftY) || (gCanvasYPos > line.lowerRightY)) return;
+
+    gIsMoving = true;
+}
+
+function onMouseMove(xMove, yMove) {
+    let currX = gMeme.lines[gMeme.selectedLineIdx].x;
+    let currY = gMeme.lines[gMeme.selectedLineIdx].y;
+
+    gMeme.lines[gMeme.selectedLineIdx].x = currX + xMove;
+    gMeme.lines[gMeme.selectedLineIdx].y = currY + yMove;
+    renderMeme();
+}
+
