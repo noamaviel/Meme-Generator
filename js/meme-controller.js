@@ -302,9 +302,18 @@ function onMouseMove(xMove, yMove) {
 
 function onAboutMe() {
   if (document.querySelector(".editor-container").style.display === "flex") {
-    document.querySelector(".about").style.display = "block";
+    document.querySelector(".about").style.display = "flex";
     document.querySelector(".about").style.padding = "85px";
     document.querySelector(".editor-container").style.padding = "90px";
     document.getElementById("canvas").style.marginRight = "80px";
+    if (mediaQuery.matches) {
+      document.getElementById("canvas").style.marginRight = "60px";
+      document.querySelector(".about").style.padding = "85px 10px";
+    }
+    if (mediaQueryNarrow.matches) {
+      document.getElementById("canvas").style.marginRight = "0";
+      document.querySelector(".editor-container").style.padding = "40px 0";
+      document.querySelector(".about").style.padding = "40px 0";
+    }
   }
 }
